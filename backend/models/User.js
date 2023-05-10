@@ -35,6 +35,8 @@ const UserSchema = new mongoose.Schema({
     type:Number,
     default:0
   },
+  profilePicture:"",
+  coverPicture:"",
   isFollowing:[
     {
       type:String,
@@ -45,6 +47,18 @@ const UserSchema = new mongoose.Schema({
     {
       type:String,
       ref:"User",
+    }
+  ],
+  likedBlogs:[
+    {
+      type : String,
+      ref: "Post",
+    }
+  ],
+  savedBlogs:[
+    {
+      type: String,
+      ref: "Post",
     }
   ],
   deletedBlogs:[

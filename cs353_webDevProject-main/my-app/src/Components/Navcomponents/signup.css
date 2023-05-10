@@ -1,0 +1,113 @@
+/* Taken from utils.css file */
+.s-content{
+    /* margin-top: 100px;
+    border: 2px solid red;
+    /* width: 500px;
+    height: 300px; */
+    /* display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center; */
+    /* background-image: url(/images/bg-signup.jpeg);
+    background-repeat: no-repeat; */
+ 
+    display: flex;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    /* margin: 5% auto;
+    border: 2px solid red;
+    width: 40%; */
+    /* height: 39%; */
+    margin: 10px auto;
+    max-width: 700px;
+    /* width: fit-content; */
+    /* width: max-content; */
+    /* padding: 4%; */
+    padding: 25px 10px;
+    border-radius: 30px;
+    /* background-color: #ECF9FF; */
+    background-color: white;
+    /* border: 2px solid red; */
+    /* background: linear-gradient(135deg,#71b7e6,#9b59b6); */
+}
+.title{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.user-details{
+    margin: 15px 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    text-align: center;
+    /* add font */
+}
+.outer{
+    /* border: 2px solid green; */
+    display: flex;
+    margin: 0;
+}
+.imgclass{
+    /* border: 2px solid black; */
+    /* width: 30px; */
+    margin:auto;
+}
+.input-box{
+    /* width: calc(100%/2 - 20px); */
+    display: flex;
+    /* justify-content: center; */
+    margin: 10px 0px;
+}
+.input-box img{
+    margin-right: 15px;
+} 
+.input-box input{
+    height: 30px;
+    /* border-radius: 5px; */
+    border: 0.5px solid rgb(99, 96, 96);
+    width: 200px;
+    font-size: 20px;
+}
+
+.input-box input:focus {
+    outline: none;
+    border: 2px solid rgb(129, 129, 245);
+    /* box-shadow: 0 0 10px #719ECE; */
+  }
+::placeholder {
+    text-align: center; 
+    font-size: 15px;
+ }
+ 
+ .signup {
+    border: 0;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    width: 100px;
+    margin: 10px;
+    color: #ffffff;
+    background-color: #36a2eb;
+    border-radius: 8px;
+    font-family: "proxima-nova-soft", sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: box-shadow 200ms ease-out;
+  }
+
+  .validationErr{
+    color: red;
+    
+  }
+/* .outer{ */
+    /* position: relative; */
+    /* margin-left: 30px; */
+    /* padding: 0; */
+/* }  */

@@ -1,0 +1,92 @@
+.profileMainContainer{
+    background-color: #fff;
+    color: rgb(61, 58, 58);
+    display: flex;
+}
+
+.outerContainer{
+    /* display: flex; */
+    width: 100%;
+}
+
+.userContainer{
+    /* width: 100%; */
+    /* margin: 2px 30px; */
+}
+
+.userImageCover{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.userImage{
+    width:150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 250px;
+    border: 3px solid white;
+}
+
+.userDetails{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.userName{
+    font-size: 24px;
+}
+
+.userBio{
+    font-weight: 300;
+}
+
+.followingTitle{
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.followings{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.following{
+    display: flex;
+    flex-direction: column;
+}
+.followingImg{
+    margin: 2px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.posts{
+    marign: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.posts h2{
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.bioInput{
+    width: 15%;
+    border: none
+    
+}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Extra from "../Navcomponents/Extra";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,7 +12,18 @@ const Navbar = () => {
     navigate("/login");
   };
   const gotoCreateBlog = () => {
-    navigate("/createblog");
+    if(user){
+      navigate("/createblog");
+    }
+    else{
+      return(
+        <Extra/>
+      )
+
+    }
+    
+  
+    
   };
 
   const handleLogout = () => {
@@ -22,7 +34,7 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(localStorage.getItem("user"));
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   return (
@@ -40,18 +52,46 @@ const Navbar = () => {
           <Link to="/Blogs">Blogs</Link>
         </li>
         <li className="nav-links">
-          {/* <a href='/userprofile'>Profile</a> */}
-          <Link to="/userprofile">Profile</Link>
+          {/* <Link to="/userprofile">Profile</Link> */}
+          {
+          user? 
+          (
+            // console.log(user),
+            // console.log(typeof(user)),
+            <Link to = {`/userprofile/${user.username}`}>UProfile</Link>
+          )
+          :(<Link to="/userprofile">Profile</Link>)
+          }
+
         </li>
         <li className="nav-links">
           {/* <a href='/signup'>signup</a> */}
           <Link to="/signup">Signup</Link>
         </li>
+
+
+
         <li className="nav-links">
           <button className="cpost" onClick={gotoCreateBlog}>
             New Post
           </button>
         </li>
+
+
+
+        {/* {user == null ? (
+          <li className="nav-links">
+            <button className="cpost">
+            New Post
+          </button>
+          </li>
+        ) : (
+            <li className="nav-links">
+            <button className="login" onClick={handleLogout}>
+              logout
+            </button>
+          </li>
+        )} */}
 
         {user == null ? (
           <li className="nav-links">

@@ -1,16 +1,23 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
+//import "bootstrap/dist/css/bootstrap.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Navcomponents/Home";
 import Blogs from "./Components/Blogspage/Blogs";
 import Signup from "./Components/Navcomponents/Signup";
 import { useState, useEffect} from "react";
+import BlogItems from "./Components/Blogspage/BlogItems";
 import axios from "axios";
 import Login from "./Components/Navcomponents/Login";
 import Userprofilemain from "./Components/Userprofilepage/Userprofilemain";
 import CreateBlogmain from "./Components/CreateBlogpage/CreateBlogmain";
 //import { useNavigate } from "react-router-dom";
+import Profile from "./Components/Userprofilepage/Profile";
+import Extra from "./Components/Navcomponents/Extra";
 
+
+import UpdateProfile from "./Components/Userprofilepage/UpdateProfile";
+import UserBlogs from "./Components/Userprofilepage/UserBlogs";
 
 function App() {
   
@@ -150,7 +157,8 @@ function App() {
     if(res.data.user){
       localStorage.setItem("user", JSON.stringify(res.data.user))
       alert("login successful");
-      window.location.href="/userprofile"
+      // window.location.href="/userprofile"
+      window.location.href="/"
     }
     else{
       alert("Invalid username or password");
@@ -183,18 +191,18 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/Blogs"
-            element={
-              <Blogs
-                // data={data}
-                // setData={setData}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            }
-          />
+          <Route path="/Blogs" >
+            <Route index element = {<Blogs categories={categories} setCategories={setCategories} />} />
+            <Route path=":blogId" element = {<BlogItems/>} />
+          </Route>
           <Route path="/userprofile" element={<Userprofilemain isLogin={isLogin}/>} />
+          <Route path="/userprofile" >
+            <Route index element = {<Extra/>}/>
+            <Route path=":username" element={<Profile/>}/> {/* display specific user with id. */}
+            <Route path=":username/:blogsType" element={<UserBlogs/>}/>
+            <Route path=":username/updateUserDetails" element={<UpdateProfile/>}/>
+            {/* <Route path=":username/:savedBlogs" element={<UserBlogs/>}/> */}
+          </Route>
           <Route
             path="/signup"
             element={

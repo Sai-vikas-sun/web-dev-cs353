@@ -1,6 +1,11 @@
 import React from "react";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories,setSelectCat }) => {
+  function Changecat(x){
+    setSelectCat(x);
+    console.log(x);
+  }
+  
   return (
     <div className="category-container">
         {/* <div className="category-options"> */}
@@ -9,7 +14,7 @@ const Categories = ({ categories }) => {
           {categories.map((cat) => {
         return (
           <div key={cat.id} className="category-options">
-            <h3>{cat.value}</h3>
+            <button className="btn success" onClick={()=>{Changecat(cat.value)}}>{cat.value}</button>
           </div>
         );
       })}

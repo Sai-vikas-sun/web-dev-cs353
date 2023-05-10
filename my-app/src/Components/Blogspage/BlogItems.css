@@ -1,0 +1,104 @@
+/* .container{
+    background-color: #fff;
+}
+.title-container{
+
+    margin-left:10%;
+    
+}
+.editTitle{
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.fields{
+    border:none;
+} */
+
+
+.edit-title{
+    border:none;
+}
+.edit-description{
+    border:none;
+}
+.singlePost {
+    width: 70%;
+    background-color:#fefefe;
+    margin: auto;
+
+  }
+  
+  .singlePostWrapper {
+    padding: 20px;
+    padding-right: 0;
+  }
+  
+  .singlePostImg {
+    position:reltive;
+    margin-left:470px;
+    width: 50%;
+    height: 400px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+  
+  .singlePostTitle {
+    text-align: center;
+    margin: 10px;
+    font-size: 28px;
+    font-family: "Lora", sans-serif;
+  }
+  .singlePostCreatedAt{
+    margin-left: 700px;
+  }
+  .singlePostDescSpan textarea{
+    width: 80%;
+    border:none;
+    
+  }
+  .singlePostEdit {
+    font-size: 16px;
+  }
+  
+  .singlePostIcon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .desfield{
+    overflow-y: scroll;
+        height: 100px;
+        resize: none;
+}
+  
+  .singlePostIcon:first-child {
+    color: teal;
+  }
+  .singlePostIcon:last-child {
+    color: tomato;
+  }
+  
+  .singlePostInfo {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #be9656;
+    font-family: "Varela Round", Arial, Helvetica, sans-serif;
+  }
+  
+  .singlePostAuthor{
+    margin-left: 5px;
+  }
+  
+  .singlePostDesc {
+    color: #666;
+    font-size: 18px;
+    line-height: 25px;
+  }
+  
+  .singlePostDesc::first-letter {
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: 600;
+  }

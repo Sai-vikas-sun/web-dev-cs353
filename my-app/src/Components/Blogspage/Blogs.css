@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
 .category-container{
     display:flex;
     flex-direction:column;
@@ -50,7 +52,8 @@
     /* flex-direction: column; */
     margin: 3%;
     /* background-color: rgb(205, 205, 205); */
-    background-color:#1b262f;;
+    background-color:#1b262f;
+    font-family: 'Poppins',sans-serif;
 }
 
 .blog-fields{
@@ -61,10 +64,31 @@
 }
 #title-style{
     color:#16b58a;
+    cursor: pointer;
+}
+.btn {
+    border: none;
+    background-color: inherit;
+    /* padding: 14px 28px; */
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .success
+   {
+    color:#fff;
 }
 
 #description-style{
     color:#fff;
+    font-family: 'Poppins',sans-serif;
+    line-height: 1.5;
     
     /* background-color: green; */
+}
+.likeicon{
+    color:#4267B2;
+}
+.like-number{
+    color:#fff;
 }

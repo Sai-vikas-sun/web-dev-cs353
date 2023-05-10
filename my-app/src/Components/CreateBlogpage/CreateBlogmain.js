@@ -31,10 +31,12 @@ import Blogcategory from './Blogcategory'
 //import Blogimage from './Blogimage'
 import "./CreateBlogmain.css"
 import {useState,useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 import axios from "axios"
 
 const CreateBlogmain = ({categories}) => {
   const [file,setFile] = useState();
+  const navigate = useNavigate();
   const [blogData,setBlogData] = useState({
     "title" : "",
     "description" : "",
@@ -46,14 +48,17 @@ const CreateBlogmain = ({categories}) => {
     e.preventDefault();
     // const formdata = new FormData();
     const userId = JSON.parse(localStorage.getItem("user"))["_id"];
-    console.log(userId)
+    console.log("In create blog handling",userId)
     // console.log(myData);
     // console.log(file);
-    const base64 = await convertTOBase64(file);
+    const base64 = file? await convertTOBase64(file) : "";
     const newData = {userId,...blogData,image: base64}
     console.log(newData)
     const res = await axios.post("http://localhost:5000/api/blogs/createblog",newData);
-    console.log("response"+res.data)
+    console.log(res);
+    console.log("response"+res.data);
+    navigate("/");
+
   }
 
   const handleChange=(e)=>{
@@ -94,7 +99,7 @@ const CreateBlogmain = ({categories}) => {
               <input
         type="file"
         id="addimg"
-        accept='image/*'
+       accept='image/*'
         onChange= {(e)=>setFile(e.target.files[0])}
       />
 
