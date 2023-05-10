@@ -113,6 +113,24 @@ router.put("/:id",async(req,res)=>{
     }
 })
 
+router.put("/:id/:postId/save", async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.postId);
+      const user = await User.findById(req.params.id);
+      console.log("params: ",req.params)
+      if (!user.savedBlogs.includes(req.params.postId)) {
+        await user.updateOne({ $push: { savedBlogs: req.params.postId } })
+        console.log("after saving : "+user.savedBlogs)
+        res.status(200).json("You saved this post!");
+      } else {
+        await user.updateOne({ $pull: { savedBlogs: req.params.postId } });
+        console.log("after unsaving : "+user.savedBlogs)
+        res.status(200).json("You unsaved this post!");
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 
 // //DELETE USER

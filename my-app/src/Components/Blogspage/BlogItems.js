@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import EditIcon from "@mui/icons-material/Edit";
 import Comment from "./Comment";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 import "./BlogItems.css";
 
@@ -23,6 +24,8 @@ const BlogItems = () => {
   const [comments, setComments] = useState([]);
   const [addcomment, setAddcomment] = useState(false);
   const [commentChanged, setCommentChanged] = useState(false);
+  const [isSaved, setIsSaved] = useState();
+
 
   var userId;
   if (localStorage.getItem("user") === null) {
@@ -39,7 +42,7 @@ const BlogItems = () => {
       alert("Please login");
     } else {
       if (likes === false) {
-        document.querySelector(".likeicon").style.color = "#e1282d";
+        document.querySelector(".likeicon").style.fill = "#e1282d";
       } else {
         document.querySelector(".likeicon").style.color = "black";
       }
@@ -57,6 +60,35 @@ const BlogItems = () => {
       likes === true ? setLikes(false) : setLikes(true);
     }
   };
+
+  const onsavehandler = async()=>{
+    if (userId === "guest") {
+      alert("Please login");
+    }
+    else{
+      if (isSaved === false) {
+        document.querySelector(".likeicon").style.fill = "black";
+        //setIsSaved(true);
+     } 
+     //else {
+      //   document.querySelector(".likeicon").style.color = "fff";
+      // }
+
+      console.log(isLiked);
+      try {
+        const res = await axios.put(
+          "http://localhost:5000/api/users/" +userId+"/"+ blogId + "/save",
+
+        );
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+      isSaved === true ? setIsSaved(false) : setIsSaved(true);
+
+    }
+
+  }
 
   const editTitle = async () => {
     var titleInput = document.querySelector(".edit-title");
@@ -266,74 +298,7 @@ const BlogItems = () => {
             </p>
           </div>
 
-          {/* <div className="title-container">
-             {blogData.title} 
-            {console.log(titleChanged)}
-            {userId === blogData.author ? (
-              <span>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={updateTitleValue}
-                  className="edit-title fields"
-                />
-                {titleChanged ? (
-                  <button onClick={updateTitlehandler}>Save</button>
-                ) : (
-                  <EditIcon className="edit-title fields" onClick={editTitle} />
-                )}
-              </span>
-            ) : (
-              <span>{blogData.title}</span>
-            )} 
-            <p className="singlePostDesc">
-              {userId === blogData.author ? (
-                <span>
-                  <input
-                    type="textarea"
-                    value={description}
-                    onChange={updateDescriptionValue}
-                    className="edit-description fields"
-                  />
-                  {descriptionChanged ? (
-                    <button onClick={updateDescriptionhandler}>save</button>
-                  ) : (
-                    <EditIcon className="edit" onClick={editDescription} />
-                  )}
-                </span>
-              ) : (
-                <span>{blogData.description}</span>
-              )}
-
-            </p>
-          </div>
-
-          //  <div className="author-container">{authorDetails.name}</div>
-
-          // <div className="description-container">
-          //   {
-
-          //   {/* {userId === blogData.author ? (
-          //     <span>
-          //       <input
-          //         type="textarea"
-          //         value={description}
-          //         onChange={updateDescriptionValue}
-          //         className="edit-description fields"
-          //       />
-          //       {descriptionChanged ? (
-          //         <button onClick={updateDescriptionhandler}>save</button>
-          //       ) : (
-          //         <EditIcon className="edit" onClick={editDescription} />
-          //       )}
-          //     </span>
-          //   ) : (
-          //     <span>{blogData.description}</span>
-          //   )}
-          // </div>
-          // <div>
-          //   <img src={blogData.image} alt="Blog pic" className="" />
-          // </div> */} 
+    
 
           <FavoriteBorderIcon
             className="likeicon"
@@ -344,6 +309,14 @@ const BlogItems = () => {
           />
 
           <span>{blogData.likedUsers.length}</span>
+
+          <BookmarkBorderIcon
+            className="saveicon"
+            onClick={() => {
+              onsavehandler();
+              // console.log("smt"+i.noOfLikes+1);
+            }}
+          />
 
           <button
             onClick={() => {
@@ -397,6 +370,10 @@ const BlogItems = () => {
       ) : (
         <p>No blog </p>
       )}
+
+
+
+    
     </>
   );
 };

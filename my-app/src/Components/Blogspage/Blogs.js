@@ -123,7 +123,11 @@ const Blogs = ({ categories }) => {
   return (
     <>
       <div className="blogheader-container">
-        <h1>Blogs page</h1>
+      <div>
+          <h1 style={{color: 'green'}}>Latest Posts from Authors</h1>
+        </div>
+        {/* <p> Users blogs are displayed here!</p> */}
+
       </div>
       <div className="blogmiddle-container">
         <Categories categories={categories} setSelectCat={setSelectCat}/>

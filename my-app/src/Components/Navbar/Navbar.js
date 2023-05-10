@@ -16,13 +16,9 @@ const Navbar = () => {
       navigate("/createblog");
     }
     else{
-      return(
-        <Extra/>
-      )
-
+        window.location.href = "/user-not-loggedin";
     }
-    
-  
+
     
   };
 

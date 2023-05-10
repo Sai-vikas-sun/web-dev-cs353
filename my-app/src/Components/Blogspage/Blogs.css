@@ -22,13 +22,24 @@
     width: 80%;
     color:#fff;
 }
+
+
+
 .blogheader-container{
-    background-color:rgb(0, 139, 19);
-    height: 14rem;
+    background-color:#1b262f;
+    height: 10rem;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     /* width:100%; */
     /* width:100%;
     height:12%; */
 }
+.saveicon{
+    
+}
+
 
 .blogmiddle-container{
     display: flex;
