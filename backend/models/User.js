@@ -6,10 +6,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name is required"],
   },
-  /*dob: {
-    type: String,
-    required: [false],
-  },*/
   username: {
     type: String,
     unique: true,
@@ -19,9 +15,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  cpassword:{
-    type:String
-  },
+  // cpassword:{
+  //   type:String
+  // },
   phone: Number,
   email: String,
   bio :  String,
@@ -79,9 +75,6 @@ UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password =  await bcrypt.hash(this.password, 12);
   }
-  /*if (this.isModified("cpassword")) {
-    this.password =  await bcrypt.hash(this.cpassword, 12);
-  }*/
    next();
 });
 /*UserSchema.pre("save", async function (next) {

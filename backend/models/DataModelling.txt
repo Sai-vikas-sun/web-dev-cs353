@@ -4,6 +4,9 @@ Schemas -
 3. Comments
 
 Relations - 
-User - Post => One to Many ( A user can create multiple posts but each post belongs to single user)
-Post - Comments => One to Many (A post can contain many comments but each comment belongs to specific post)
-User - Comments => One to Many (A user can write multiple comments but each comment belongs to a single user)
+User - Post => One to Many 
+( A user can create multiple posts but each post belongs to single user)
+Post - Comments => One to Many 
+(A post can contain many comments but each comment belongs to specific post)
+User - Comments => One to Many 
+(A user can write multiple comments but each comment belongs to a single user)

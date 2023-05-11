@@ -8,6 +8,7 @@ const UserBlogs = ({myUser}) => {
   const reqType = useParams().blogsType;
   // myUser? loadUserBlogs() :  loadSpecificBlogs()
   const [len,setLen] = useState(10);
+  const [seeAll,setSeeAll] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -54,9 +55,13 @@ const UserBlogs = ({myUser}) => {
         })
       :<p style={{color:"red",fontSize: "30px"}}>User don't have any blogs</p>
       }
-      <button onClick={()=>setLen(posts.length)}>See all Posts</button>
+      {!seeAll?
+  <button onClick={()=>(setLen(posts.length),setSeeAll(true))}>See All Posts</button>
+    : <button onClick={()=>(setLen(10),setSeeAll(false))}>See Few Posts</button> 
+    }
+  </div>
 
-      </div>
+      {/* </div> */}
 
   </>
   )

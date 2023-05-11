@@ -6,7 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import EditIcon from "@mui/icons-material/Edit";
 import Comment from "./Comment";
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 import "./BlogItems.css";
 
@@ -24,8 +24,8 @@ const BlogItems = () => {
   const [comments, setComments] = useState([]);
   const [addcomment, setAddcomment] = useState(false);
   const [commentChanged, setCommentChanged] = useState(false);
-  const [isSaved, setIsSaved] = useState();
-
+  const [isSaved, setIsSaved] = useState(false);
+  const [myDate, setMyDate] = useState();
 
   var userId;
   if (localStorage.getItem("user") === null) {
@@ -42,9 +42,11 @@ const BlogItems = () => {
       alert("Please login");
     } else {
       if (likes === false) {
-        document.querySelector(".likeicon").style.fill = "#e1282d";
+        document.querySelector(".likeicon").style.color = "#e1282d";
+        console.log("red");
       } else {
         document.querySelector(".likeicon").style.color = "black";
+        console.log("black");
       }
 
       console.log(isLiked);
@@ -61,34 +63,38 @@ const BlogItems = () => {
     }
   };
 
-  const onsavehandler = async()=>{
+  const onsavehandler = async () => {
     if (userId === "guest") {
       alert("Please login");
-    }
-    else{
+    } else {
       if (isSaved === false) {
-        document.querySelector(".likeicon").style.fill = "black";
+        document.querySelector(".saveicon").style.fill = "black";
         //setIsSaved(true);
-     } 
-     //else {
+      }
+      //else {
       //   document.querySelector(".likeicon").style.color = "fff";
       // }
 
-      console.log(isLiked);
+      console.log(isSaved);
       try {
         const res = await axios.put(
-          "http://localhost:5000/api/users/" +userId+"/"+ blogId + "/save",
-
+          "http://localhost:5000/api/users/" + userId + "/" + blogId + "/save"
         );
         console.log(res.data);
+        if(!isSaved){
+          alert("Saved Successfully")
+        }
+        else if(isSaved){
+          alert("Unsaved Successfully")
+        }
+      
       } catch (err) {
         console.log(err);
       }
+    
       isSaved === true ? setIsSaved(false) : setIsSaved(true);
-
     }
-
-  }
+  };
 
   const editTitle = async () => {
     var titleInput = document.querySelector(".edit-title");
@@ -137,7 +143,6 @@ const BlogItems = () => {
       document.querySelector(".edit-description").style.border = "none";
       alert("description updated successfully");
       setDescriptionChanged(false);
-
     } catch (err) {
       console.log(err);
     }
@@ -196,11 +201,32 @@ const BlogItems = () => {
         setAuthorDetails(res.data.userdetails);
         setTitle(res.data.postdetails.title);
         setDescription(res.data.postdetails.description);
+        const dd = new Date(res.data.postdetails.createdAt);
+        const weekday = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const dd1 =
+          weekday[dd.getDay()] +
+          " " +
+          dd.getDate() +
+          " " +
+          dd.getMonth() +
+          " " +
+          dd.getFullYear();
+        console.log(dd1);
+        setMyDate(dd1);
         res.data.postdetails.likedUsers.includes(userId)
           ? setIsLiked(true)
           : setIsLiked(false);
         console.log(res.data);
         setLikes(res.data.postdetails.noOfLikes);
+    
       } catch (err) {
         console.log(err);
       }
@@ -208,31 +234,7 @@ const BlogItems = () => {
     fetchBlog();
   }, [likes]);
 
-  // useEffect(()=>{
 
-  // })
-
-  // const renderBlog = ()=>{
-  //   return (
-  //     <>
-  //     {blogData?
-  //     <div>
-  //       <div>{blogData.title}</div>
-  //       <div>{blogData.description}</div>
-  //       {/* <ThumbUpOffAltIcon className="likeicon" onClick={()=>{
-  //                   onClickhandler(i._id);
-  //                   // setLikenumber(i.noOfLikes+1);
-  //                   // console.log("smt"+i.noOfLikes+1);
-  //                 }}/>
-  //                 <span className="like-number">{i.noOfLikes}</span>  */}
-  //       <div>{blogData.noOfLikes}</div>
-  //       <div>{isLiked}</div>
-  //     </div>
-  //    : <p>No blog </p>
-  //     }
-  //   </>
-  //   )
-  // }
   return (
     <>
       {blogData ? (
@@ -253,7 +255,9 @@ const BlogItems = () => {
                 />
                 {/* <div className="singlePostEdit"> */}
                 {titleChanged ? (
-                  <button onClick={updateTitlehandler} className="updateicon">Save</button>
+                  <button onClick={updateTitlehandler} className="updateicon">
+                    Save
+                  </button>
                 ) : (
                   <EditIcon className="updateicon" onClick={editTitle} />
                 )}
@@ -265,115 +269,129 @@ const BlogItems = () => {
             <div className="singlePostInfo">
               <span>
                 Author:
-                <b className="singlePostAuthor">
-                  {authorDetails.name}
-                </b>
+                <b className="singlePostAuthor">{authorDetails.name}</b>
                 <b className="singlePostCreatedAt">
-                  {blogData.createdAt}
+                  {
+                    // blogData.createdAt
+                    <>
+                      <span>Created at : {myDate} </span>
+                      
+                    </>
+                  }
                 </b>
               </span>
               <span></span>
             </div>
             <p className="singlePostDesc">
               {userId === blogData.author ? (
-                <span className="singlePostDescSpan">
+                <div className="singlePostDescSpan">
                   <textarea
                     type="textarea"
                     value={description}
                     onChange={updateDescriptionValue}
                     className="edit-description descfield"
-                    rows="12" cols="60"
+                    rows="12"
+                    cols="60"
                     placeholder="Enter the description"
                   />
                   {descriptionChanged ? (
-                    <button onClick={updateDescriptionhandler}>save</button>
+                    <button onClick={updateDescriptionhandler}>Save</button>
                   ) : (
-                    <EditIcon className="edit-description" onClick={editDescription} />
+                    <EditIcon
+                      className="edit-description"
+                      onClick={editDescription}
+                    />
                   )}
-                </span>
+                </div>
               ) : (
                 <span>{blogData.description}</span>
               )}
-
             </p>
           </div>
 
-    
-
-          <FavoriteBorderIcon
-            className="likeicon"
-            onClick={() => {
-              onlikehandler();
-              // console.log("smt"+i.noOfLikes+1);
-            }}
-          />
-
-          <span>{blogData.likedUsers.length}</span>
-
-          <BookmarkBorderIcon
-            className="saveicon"
-            onClick={() => {
-              onsavehandler();
-              // console.log("smt"+i.noOfLikes+1);
-            }}
-          />
-
-          <button
-            onClick={() => {
-              addcommentbtn();
-              //setAddcomment(true);
-            }}
-          >
-            Add comment
-          </button>
-
-          {addcomment ? (
-            <Comment blogId={blogId} setAddcomment={setAddcomment} />
-          ) : (
-            ""
-          )}
-
-          <CommentIcon
-            className="commenticon"
-            onClick={() => {
-              Commenthandler();
-            }}
-          />
-
-          {userId === blogData.author ? (
-            <button
-              className="delete-blog-btn"
+          <div className="singleposthandlers">
+            <div className="posthandler2">
+              <div className="likesavehandler">
+            <FavoriteBorderIcon
+              style={{ fill: "black" }}
+              className="likeicon"
               onClick={() => {
-                deleteBloghandler(blogData._id);
+                onlikehandler();
+                // console.log("smt"+i.noOfLikes+1);
+              }}
+            />
+
+            <span className="likeicon" style={{fontSize: 'larger'}}>{blogData.likedUsers.length}</span>
+
+            <BookmarkBorderIcon
+              className="saveicon"
+              onClick={() => {
+                onsavehandler();
+                // console.log("smt"+i.noOfLikes+1);
+              }}
+            />
+            </div>
+            <div className="commenthandler2">
+
+            <button
+              className="addCommentBtn"
+              onClick={() => {
+                addcommentbtn();
+                //setAddcomment(true);
               }}
             >
-              Delete
+              Add comment
             </button>
-          ) : (
-            ""
-          )}
-          {comments ? (
-            <div className="comment-container">
-              {comments.map((c) => {
-                return (
-                  <div key={c._id}>
-                    <span>{c.username}</span>
-                    {c.description}
-                  </div>
-                );
-              })}
+
+
+
+            <CommentIcon
+              className="commenticon"
+              onClick={() => {
+                Commenthandler();
+              }}
+            />
             </div>
-          ) : (
-            ""
-          )}
+            {userId === blogData.author ? (
+              <button
+                className="delete-blog-btn"
+                onClick={() => {
+                  deleteBloghandler(blogData._id);
+                }}
+              >
+                Delete
+              </button>
+            ) : (
+              ""
+            )}
+            </div>
+            <div className="addCommentclass">
+            {addcomment ? (
+              <Comment blogId={blogId} setAddcomment={setAddcomment} />
+              ) : (
+                ""
+                )}
+            </div>
+            {comments ? (
+              <div className="comment-container">
+                <div className="commentTitle" >Comments</div>
+                {comments.map((c) => {
+                  return (
+                    <div key={c._id}>
+                      <div className="each-comment">{c.username} : {c.description}</div>
+                      <hr/>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       ) : (
         <p>No blog </p>
       )}
-
-
-
-    
     </>
   );
 };

@@ -30,12 +30,15 @@ const Comment = ({blogId,setAddcomment}) => {
 
  }
   return (
-    <div>
+    <div className="commentFinalhandler">
         <form action="/" method="post" onSubmit={handleSubmit}>
+        <div className='commenthandler3'>
+
         <label>Description</label>
         <input type="textarea" name="description"  onChange={handleChange}
                   placeholder="Enter the description" required/>
         <button type="submit">submit</button>
+        </div>
 
         </form>
     </div>

@@ -9,58 +9,6 @@ const app = express();
 
 app.use(cors());
 //import { ObjectId } from 'mongodb';
-
-//CREATE POST
-// router.post("/createblog", async (req, res) => {
-//   // console.log(req.body);
-//   const title = req.body.title;
-//   const description = req.body.description;
-//   const category = req.body.category;
-//   const userId = req.body.userId; //username
-//   const image = req.body.image;
-//   console.log("body --- ");
-//   console.log(userId);
-//   // console.log(req.body);
-//   // console.log("image : " + image);
-//   try {
-//     // const userfound = await User.findOne({ _id: userId }).lean();
-//     const userfound = await User.findOne({ _id: userId });
-//     if (!userfound) {
-//       console.log("User not found");
-//       return res.json({ msg: "User not found" });
-//     }
-//     console.log(userfound);
-//     console.log("In createBlog")
-//     const savedBlog = await Post.create({
-//       title: title,
-//       description: description,
-//       category: category, //change
-//       image: image,
-//       author: userId,
-//     });
-//     console.log("user: ",userfound)
-//     //console.log("savedBlog" ,savedBlog)
-//     //console.log("blogs: ",userfound.blogs)
-    
-//     // userfound.blogs.push(savedBlog);
-//     // userfound.noOfBlogs += 1;
-    
-//     // await userfound.updateOne({$push: {blogs: savedBlog._id},$set:{noOfBlogs: userfound.noOfBlogs+1}})
-//     // {$set:{noOfBlogs: userfound.noOfBlogs+1}},
-//     await userfound.updateOne({$set:{noOfBlogs: userfound.noOfBlogs+1},$push: {blogs: savedBlog}})
-  
-//     console.log("blogs : ",userfound)
-//     await userfound.save();
-//     res.status(200).json("Blog is successfully created !");
-//   } catch (err) {
-//     console.log("In catch block");
-//     console.log(err);
-//     res.json(err);
-//   }
-  
-// });
-
-
 router.post("/createblog",async(req,res)=>{
   // console.log(req.body);
   const title = req.body.title;
@@ -179,10 +127,10 @@ router.get("/timeline/:id", async (req, res) => {
 
     if (req.params.id === "guest") {
       const allposts = await Post.find();
-      res.json(allposts);
+      return res.json(allposts);
     }
 
-     else {
+    else {
       const curUser = await User.findOne({ _id: req.params.id });
 
       console.log(curUser._id);
@@ -200,16 +148,17 @@ router.get("/timeline/:id", async (req, res) => {
       const finalPosts = userPosts.concat(...friendPosts);
       const all_posts= await Post.find();
       console.log(typeof all_posts);
-      console.log(all_posts);
+      // console.log(all_posts);
       var n = all_posts.length;
       console.log("all posts length"+n);
       console.log("final posts length"+finalPosts.length);
+      const sendPosts = finalPosts.concat(all_posts)
       // all_posts.forEach(item=>{
       //   if(item[_id])
 
       // })
       //console.log(finalPosts);
-      res.json(finalPosts);
+      res.json(sendPosts);
       // res.json(userPosts);
     }
 
